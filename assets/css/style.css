@@ -1,0 +1,10 @@
+#wrapper{
+    width:1240px;
+    margin: auto;
+}
+
+#title{
+    color: purple;
+    position: relative;
+    left: 50%;
+}
