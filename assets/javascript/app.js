@@ -92,7 +92,7 @@ var source = stages[index];
 var game = {
     stage: 0,
     init : function () {
-        $("#title").text("Animal Trivial Game")
+        $("#title").text("Animal Trivia")
         var startBtn = $("<button>", {
             id: "start-button",
             text: "Start"
