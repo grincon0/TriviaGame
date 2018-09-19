@@ -1,3 +1,4 @@
+//global variables
 var wins = 0;
 var losses = 0;
 var index = 0;
@@ -10,7 +11,8 @@ var isTimeout = false;
 var hasUserAnswered = false;
 var isGameFinished = false;
 
-//will contain all of the page data that is unique to each question
+//will contain all of the page data need for each question
+//each question is a seperate object within the stages array
 var stages = [{
         place : 1,
         question : "What is the only mammal that is capable of true flight?",
@@ -84,6 +86,8 @@ var stages = [{
     },
 
 ]
+//refers to an position in the stages array
+//index var increases after evey question
 var source = stages[index];
 var game = {
     stage: 0,
@@ -99,7 +103,7 @@ var game = {
     //generates the next question on the DOM
     nextQuestion : function(){
         // if all questions have been answered, show this
-        if((index) >= 7){
+        if((index) >= 8){
             
             $("#question").text(`${stages[8].question}`);
             $("#feedback").html(`You've gotten ${wins} out of  the ${wins + losses} questions correct`);
@@ -108,6 +112,7 @@ var game = {
 
 
         }else{
+        //generates a question and it's choices to the DOM    
         clearDOM();
         var source = stages[index];
         $("#question").text(source.question);
@@ -155,6 +160,7 @@ var game = {
     },
 }
 
+//contains the timer that will run on the questions screen
 var questionTimer = {
     time : 15,
     countdown : function () {
@@ -174,14 +180,18 @@ var questionTimer = {
     }
 }
 
+//contains the timer that will run when we reach the results screen
+//will start the next question once the timer interval clears
 var resultsTimer = {
     time : 5,
     countdown : function () {
         var counter = setInterval(function(){
             resultsTimer.time--;
             if((resultsTimer.time === 0)){
+                
                 clearInterval(counter);
                 refresh();
+                
                 game.nextQuestion();
             }
         }, 1000);
@@ -190,6 +200,7 @@ var resultsTimer = {
 
 //global functions
 
+//resets boolean values and timer seconds
 function refresh(){
     index++
     isCorrect = false;
@@ -200,7 +211,23 @@ function refresh(){
     resultsTimer.time = 5;
     
     clearDOM();
-    questionTimer.countdown();
+    checkIfFinished();
+
+    if(!isGameFinished){
+        questionTimer.countdown();
+    }else{
+        console.log("All question have been answered");
+    }
+    
+}
+
+//checks to see if there are no more questions to be answered to set up the results screen
+function checkIfFinished(){
+    if(index >= 8){
+        isGameFinished = true;
+    }else{
+        return;
+    }
 }
 
 $(document).ready(function(){
@@ -221,11 +248,12 @@ $(document).ready(function(){
     fadeInDOM(); 
 });
 
-
+//call backs chooseAnswer. 
 $(document).on("click", "#choice", chooseAnswer);
 
 
-
+//compares the answer chosen with the correct answer
+//will run chechAnswer to generate the DOM elements
 function chooseAnswer(){
         var source = stages[index];
         var userChoice = $(this).attr("data-name");
@@ -241,7 +269,8 @@ function chooseAnswer(){
             game.checkAnswer();
         }
 }
-
+//inital button that appears on screen. It will start the game on press
+//begins the question Timer
 function onClick(bt){
     $(bt).on("click", function(){
         clearDOM();
@@ -249,20 +278,15 @@ function onClick(bt){
         questionTimer.countdown();
     });
 }
+//loops over the clearThese Array
+//empties the elements with those ids
 function clearDOM(){
     clearThese.forEach((id) => {
         $(id).empty();
     });
 }
-function resetBooleans(){
-    isCorrect = false;
-    isWrong = false;
-    isTimeout = false;
-    hasUserAnswered = false;
-    questionTime = 15;
-    clearDOM();
-}
 
+//fades in effect
 function fadeInDOM(){
     $("#question").hide(0).delay(500).fadeIn(1000);
     $(".fad").hide(0).delay(500).fadeIn(3000);
