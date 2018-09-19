@@ -8,6 +8,7 @@ var isCorrect = false;
 var isWrong = false;
 var isTimeout = false;
 var hasUserAnswered = false;
+var isGameFinished = false;
 
 
 var stages = [{
@@ -77,7 +78,7 @@ var stages = [{
         place: 9,
         question: "Well done, you complete this Trivia sesh",
         feedback : `You've gotten ${wins} out of ${wins + losses} questions correct`,
-        correctAnswer : "Wanna try again? Presse the Space bar now!",
+        correctAnswer : "Wanna try again? Press the Space bar now!",
         gif: "assets/images/finish.gif"
 
     },
@@ -96,11 +97,14 @@ var game = {
     },
     nextQuestion : function(){
 
-        if((index + 1) === 8){
+        if((index) === 8){
+            index++
+            isGameFinished = true;
             clearDOM();
-            $("#question").text(`${stages[index + 1].question}`);
-            $("#gif").html(`<img src=${stages[index + 1].gif}>`);
-            $("#answers").text(`${stages[index + 1].correctAnswer}`);
+            $("#question").text(`${stages[index].question}`);
+            $("#feedback").html(`${stages[index].feedback}`);
+            $("#gif").html(`<img src=${stages[index].gif}>`);
+            $("#answers").text(`${stages[index].correctAnswer}`);
 
 
         }else{
@@ -133,16 +137,19 @@ var game = {
         
         var source = stages[index];
         if(isCorrect){
+            $("#time").empty();
             $("#feedback").text(`Correct!`);
             $("#gif").html(`<img src=${source.gif}>`);
             //game.resultsInterval();
             wins++;
         }else if(isWrong){
+            $("#time").empty();
             $("#feedback").text(`Wrong!`);
             $("#gif").html(`<img src=${source.gif}>`);
             //game.resultsInterval();
             losses++;
         }else if(isTimeout){
+            $("#time").empty();
             $("#feedback").text(`Out of time!`);
             $("#answers").text(`The correct answer is ${source.correctAnswer}`);
             $("#gif").html(`<img src=${source.gif}>`);
@@ -161,8 +168,10 @@ var questionTimer = {
             if((questionTimer.time <= 0)){
                 isTimeout = true;
                 clearInterval(counter);
+                $("#time").empty();
                 game.checkAnswer();
             }else if(hasUserAnswered){
+                $("#time").empty();
                 clearInterval(counter);
             }
         }, 1000);
@@ -173,7 +182,6 @@ var resultsTimer = {
     time : 5,
     countdown : function () {
         var counter = setInterval(function(){
-            $("#time").text(`Seconds left: ${resultsTimer.time}`);
             resultsTimer.time--;
             if((resultsTimer.time === 0)){
                 clearInterval(counter);
@@ -195,36 +203,44 @@ function refresh(){
     
     clearDOM();
     questionTimer.countdown();
-    
-    
-
 }
 
 $(document).ready(function(){
     game.init();
-    onClick("#start-button");   
+    onClick("#start-button"); 
+    $(document).keyup(function(event){
+        if(isGameFinished){
+            if(event.which === 32){
+                location.reload();
+            }else{
+                return;
+            }
+    
+        }else{
+            return;
+        }
+    });  
 });
 
 
 $(document).on("click", "#choice", chooseAnswer);
 
 
+
 function chooseAnswer(){
-   
         var source = stages[index];
         var userChoice = $(this).attr("data-name");
         if(userChoice === source.correctAnswer){
             isCorrect = true;
             hasUserAnswered = true;
-            //clearInterval(game.questionInterval);
+            
             game.checkAnswer();
         }else if(userChoice != source.correctAnswer){
             isWrong = true;
             hasUserAnswered = true;
-            //clearInterval(game.questionInterval);
+            
             game.checkAnswer();
         }
-    
 }
 
 function onClick(bt){
