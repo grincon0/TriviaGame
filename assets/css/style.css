@@ -1,19 +1,36 @@
+body{
+    background-color: aquamarine;
+    background-image: url("assets/images/harry-sussams-pixeljungle.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+
 .container{
     background-image: linear-gradient(to bottom right, blue, pink)
 }
 
-#title{
-    color: purple;
-
-}
 #title,#time, #question, #answers, #feedback{
     color: white;
-    text-align: center;
+  
     position: relative;
-    left: 40%;
+    left: 30%;
+    margin: 20px;
+}
+
+#answer{
+    background-color: green;
+    border: none;
+    padding: 19px, 32px;
+    text-decoration: none;
+    
 }
 button{
+    border-radius: 4px;
     text-decoration: none;
+    transition-duration: 0.5s;
+    cursor: pointer;
 }
 #choice{
      
@@ -25,6 +42,16 @@ button{
     
 }
 
-li:hover{
-    background: lightsalmon;
+img{
+    height:250px;
+    width: 330px;
+    border-radius: 8px;
+    box-shadow: 10px 10px 5px grey;
+    position: relative;
+    left: 100%;
+    bottom: 10%;
+}
+
+button:hover{
+    background: rgb(252, 66, 66);
 }
