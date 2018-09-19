@@ -1,13 +1,28 @@
-
+.container{
+    background-image: linear-gradient(to bottom right, blue, pink)
+}
 
 #title{
     color: purple;
-    position: relative;
-    left: 50%;
+
 }
-#time, button{
+#title,#time, #question, #answers, #feedback{
+    color: white;
+    text-align: center;
     position: relative;
-    left: 50%;
+    left: 40%;
+}
+button{
+    text-decoration: none;
+}
+#choice{
+     
+    display: inline;
+    font-size: 16px;
+    border: none;
+    text-decoration: none;
+    margin:10px;
+    
 }
 
 li:hover{

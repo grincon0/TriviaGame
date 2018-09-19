@@ -16,14 +16,14 @@ var stages = [{
         question : "What is the only mammal that is capable of true flight?",
         answers : ["The flying squirrel","The eagle","The bat","The marsupial"],
         correctAnswer : "The bat",
-        gif: "assets/images/giphy.gif"
+        gif: "assets/images/batf.gif"
     },
     {
         place: 2,
         question: "What is the most common bird in the world?",
         answers : ["The Robin","The Duck","The Hawk","The chicken"],
         correctAnswer : "The chicken",
-        gif: "assets/images/tester.gif"
+        gif: "assets/images/chicken.gif"
 
     },
     {
@@ -76,8 +76,8 @@ var stages = [{
     },
     {
         place: 9,
-        question: "Well done, you complete this Trivia sesh",
-        feedback : `You've gotten ${wins} out of ${wins + losses} questions correct`,
+        question: "Well done, you completed this Trivia sesh",
+        feedback : `You've gotten ${wins} out of  the ${wins + losses} questions correct`,
         correctAnswer : "Wanna try again? Press the Space bar now!",
         gif: "assets/images/finish.gif"
 
@@ -94,39 +94,37 @@ var game = {
             text: "Start"
         });
         $("#feedback").append(startBtn);
+       
     },
     nextQuestion : function(){
 
-        if((index) === 8){
-            index++
-            isGameFinished = true;
-            clearDOM();
-            $("#question").text(`${stages[index].question}`);
-            $("#feedback").html(`${stages[index].feedback}`);
-            $("#gif").html(`<img src=${stages[index].gif}>`);
-            $("#answers").text(`${stages[index].correctAnswer}`);
+        if((index) >= 7){
+            
+            
+            
+            $("#question").text(`${stages[8].question}`);
+            $("#feedback").html(`${stages[8].feedback}`);
+            $("#gif").html(`<img src=${stages[8].gif}>`);
+            $("#answers").text(`${stages[8].correctAnswer}`);
 
 
         }else{
-
-        
         clearDOM();
-        //questionTime = 15;
-        
-        //game.questionInterval();
         var source = stages[index];
         $("#question").text(source.question);
-
-
         source.answers.forEach((answer) => {
             
             var listItem = $('<button>');
             $(listItem).attr('data-name', answer)
                         .attr('id', 'choice')
+                        .attr('class', 'fad')
                        .text(answer);
             //$(list).append(listItem);
             $('#answers').append(listItem);
+            
         });
+        fadeInDOM();
+
         
         }
         
@@ -145,6 +143,7 @@ var game = {
         }else if(isWrong){
             $("#time").empty();
             $("#feedback").text(`Wrong!`);
+            $("#answers").text(`The correct answer is ${source.correctAnswer}`);
             $("#gif").html(`<img src=${source.gif}>`);
             //game.resultsInterval();
             losses++;
@@ -219,7 +218,8 @@ $(document).ready(function(){
         }else{
             return;
         }
-    });  
+    }); 
+    fadeInDOM(); 
 });
 
 
@@ -262,6 +262,11 @@ function resetBooleans(){
     hasUserAnswered = false;
     questionTime = 15;
     clearDOM();
+}
+
+function fadeInDOM(){
+    $("#question").hide(0).delay(500).fadeIn(1000);
+    $(".fad").hide(0).delay(500).fadeIn(3000);
 }
 
 
