@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Chewy|Freckle+Face');
+@import url('https://fonts.googleapis.com/css?family=Biryani|Chewy|Freckle+Face');
 
 
 
@@ -11,12 +11,12 @@ body{
 
 }
 
-
-.container{
-    background-image: linear-gradient(to bottom right, blue, pink);
+.countainer{
+    background-image: linear-gradient(to bottom right, rgb(0, 255, 98), rgb(247, 40, 40));
     height:928px;
-    opacity: 0.5;
+    opacity: 0.8;
 }
+
 
 #title,#time, #question, #answers, #feedback{
     color: white;
@@ -28,13 +28,17 @@ body{
 
 #title{
     color: orange;
-    font-size: 32px;
+    font-size: 55px;
     font-family: 'Chewy', cursive;
     
 }
 
+#time{
+    font-family: 'Biryani', sans-serif;
+}
+
 #question{
-    font-size: 14px;
+    font-size: 25px;
     font-family:'Freckle Face', cursive;
 
 }
@@ -45,6 +49,10 @@ body{
     padding: 19px, 32px;
     text-decoration: none;
     
+}
+
+#feedback{
+    font-size:25px;
 }
 button{
     border-radius: 4px;
