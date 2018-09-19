@@ -24,7 +24,64 @@ var stages = [{
         correctAnswer : "The chicken",
         gif: "assets/images/tester.gif"
 
-    }
+    },
+    {
+        place: 3,
+        question: "Which of the following can catch a cold and other human-borne illnesess?",
+        answers : ["Gorrilla","Chimpanzee","Dog","Seahorse"],
+        correctAnswer : "Gorrilla",
+        gif: "assets/images/gorilla.gif"
+
+    },
+    {
+        place: 4,
+        question: "What is the fasted land mammal on Earth?",
+        answers : ["Ostritch","Jaguar","Dolphin","Cheetah"],
+        correctAnswer : "Cheetah",
+        gif: "assets/images/cheester.gif"
+
+    },
+    {
+        place: 5,
+        question: "What is the second fasted land mammal on Earth?",
+        answers : ["Springbok","Sonic the Hedgehog","Spring Elk","Pronghorn Antelope"],
+        correctAnswer : "Pronghorn Antelope",
+        gif: "assets/images/fast.gif"
+
+    },
+    {
+        place: 6,
+        question: "What animal is able to regenarate its limbs? ",
+        answers : ["Jellyfish","Slug","Starfish","tadpols"],
+        correctAnswer : "Starfish",
+        gif: "assets/images/starfish.gif"
+
+    },
+    {
+        place: 7,
+        question: "Which of the following do not lay eggs?",
+        answers : ["Penguin","Platypus","Komoto Dragon","Bats"],
+        correctAnswer : "Bats",
+        gif: "assets/images/bat.gif"
+
+    },
+    {
+        place: 8,
+        question: "What kind of animal is a Basenji?",
+        answers : ["Cat","Dog","Raccoon","Amphebian"],
+        correctAnswer : "Dog",
+        gif: "assets/images/basenji.gif"
+
+    },
+    {
+        place: 9,
+        question: "Well done, you complete this Trivia sesh",
+        feedback : `You've gotten ${wins} out of ${wins + losses} questions correct`,
+        correctAnswer : "Wanna try again? Presse the Space bar now!",
+        gif: "assets/images/finish.gif"
+
+    },
+
 ]
 var source = stages[index];
 var game = {
@@ -38,6 +95,17 @@ var game = {
         $("#feedback").append(startBtn);
     },
     nextQuestion : function(){
+
+        if((index + 1) === 8){
+            clearDOM();
+            $("#question").text(`${stages[index + 1].question}`);
+            $("#gif").html(`<img src=${stages[index + 1].gif}>`);
+            $("#answers").text(`${stages[index + 1].correctAnswer}`);
+
+
+        }else{
+
+        
         clearDOM();
         //questionTime = 15;
         
@@ -55,6 +123,8 @@ var game = {
             //$(list).append(listItem);
             $('#answers').append(listItem);
         });
+        
+        }
         
     },
     checkAnswer : function () {
