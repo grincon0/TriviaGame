@@ -11,11 +11,6 @@ body{
 
 }
 
-.countainer{
-    background-image: linear-gradient(to bottom right, rgb(0, 255, 98), rgb(247, 40, 40));
-    height:928px;
-    opacity: 0.8;
-}
 
 
 #title,#time, #question, #answers, #feedback{
@@ -28,8 +23,9 @@ body{
 
 #title{
     color: orange;
-    font-size: 55px;
+    font-size: 75px;
     font-family: 'Chewy', cursive;
+    text-shadow: 0 0 3px rgb(60, 255, 0), 0 0 5px rgb(0, 195, 255);
     
 }
 
@@ -37,9 +33,16 @@ body{
     font-family: 'Biryani', sans-serif;
 }
 
+#feedback {
+    font-size : 25px;
+    font-family:'Freckle Face', cursive;
+}
+
 #question{
     font-size: 25px;
     font-family:'Freckle Face', cursive;
+    position: relative;
+
 
 }
 

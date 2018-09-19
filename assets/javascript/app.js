@@ -1,7 +1,7 @@
 var wins = 0;
 var losses = 0;
 var index = 0;
-////var questionTime = 15;
+
 var resultsTime = 5;
 var clearThese = ["#time","#question", "#feedback", "#answers", "#gif"];
 var isCorrect = false;
@@ -10,7 +10,7 @@ var isTimeout = false;
 var hasUserAnswered = false;
 var isGameFinished = false;
 
-
+//will contain all of the page data that is unique to each question
 var stages = [{
         place : 1,
         question : "What is the only mammal that is capable of true flight?",
@@ -96,14 +96,13 @@ var game = {
         $("#feedback").append(startBtn);
        
     },
+    //generates the next question on the DOM
     nextQuestion : function(){
-
+        // if all questions have been answered, show this
         if((index) >= 7){
             
-            
-            
             $("#question").text(`${stages[8].question}`);
-            $("#feedback").html(`${stages[8].feedback}`);
+            $("#feedback").html(`You've gotten ${wins} out of  the ${wins + losses} questions correct`);
             $("#gif").html(`<img src=${stages[8].gif}>`);
             $("#answers").text(`${stages[8].correctAnswer}`);
 
@@ -119,7 +118,7 @@ var game = {
                         .attr('id', 'choice')
                         .attr('class', 'fad')
                        .text(answer);
-            //$(list).append(listItem);
+            
             $('#answers').append(listItem);
             
         });
@@ -129,6 +128,7 @@ var game = {
         }
         
     },
+    //checks to see if the user's choice was correct, incorrect, or if time ran out
     checkAnswer : function () {
         clearDOM();
         resultsTimer.countdown();
@@ -138,21 +138,18 @@ var game = {
             $("#time").empty();
             $("#feedback").text(`Correct!`);
             $("#gif").html(`<img src=${source.gif}>`);
-            //game.resultsInterval();
             wins++;
         }else if(isWrong){
             $("#time").empty();
             $("#feedback").text(`Wrong!`);
             $("#answers").text(`The correct answer is ${source.correctAnswer}`);
             $("#gif").html(`<img src=${source.gif}>`);
-            //game.resultsInterval();
             losses++;
         }else if(isTimeout){
             $("#time").empty();
             $("#feedback").text(`Out of time!`);
             $("#answers").text(`The correct answer is ${source.correctAnswer}`);
             $("#gif").html(`<img src=${source.gif}>`);
-            //game.resultsInterval();
             losses++;
         }
     },
@@ -190,6 +187,8 @@ var resultsTimer = {
         }, 1000);
     }
 }
+
+//global functions
 
 function refresh(){
     index++
